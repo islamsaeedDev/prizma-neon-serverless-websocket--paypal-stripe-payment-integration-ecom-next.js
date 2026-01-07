@@ -1,0 +1,40 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client"
+  output   = "../lib/generated/prisma"
+  previewFeatures = ["driverAdapters"]
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model Product {
+  // id Int @id @default(autoincrement())
+  id String @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+
+  name        String
+  slug        String @unique(map: "product_slug_idex")
+  category    String
+  description String
+
+  images String[]
+
+  price Decimal @default(0) @db.Decimal(12, 2)
+  brand String
+
+  ratting     Decimal @default(0) @db.Decimal(3, 2)
+  numReviews Decimal @default(0)
+
+  stock      Int
+  isFeatured Boolean @default(false)
+  banner     String?
+
+  createdAt DateTime @default(now()) @db.Timestamp(6)
+  updatedAt DateTime @updatedAt @db.Timestamp(6)
+}
