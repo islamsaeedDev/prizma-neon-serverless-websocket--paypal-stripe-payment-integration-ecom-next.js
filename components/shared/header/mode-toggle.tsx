@@ -1,5 +1,4 @@
 "use client";
-import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
@@ -14,14 +13,14 @@ import { useTheme } from "next-themes";
 import { MoonIcon, SunIcon, SunMoonIcon } from "lucide-react";
 
 export default function ModeToggle() {
-  const [mounted, setMounted] = useState(false);
+  // const [mounted, setMounted] = useState(false);
 
-  useEffect(() => {
-    setMounted(true);
-  }, []);
+  // useEffect(() => {
+  //   setMounted(true);
+  // }, []);
   const { theme, setTheme } = useTheme();
 
-  if (!mounted) return null;
+  // if (!mounted) return null;
 
   return (
     <DropdownMenu>

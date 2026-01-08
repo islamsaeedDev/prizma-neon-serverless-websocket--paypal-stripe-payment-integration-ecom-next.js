@@ -8,10 +8,10 @@ import React from "react";
 export const metadata = {
   title: "Home",
 };
-const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
+// const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
 const HomePage = async () => {
-  await delay(1500);
+  // await delay(1500);
   const latestProducts = await getLatestProducts(LATEST_PRODUCT_LIMIT);
 
   return (

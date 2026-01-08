@@ -14,6 +14,7 @@ const ProductImages = ({ images }: { images: string[] }) => {
         alt="product image"
         width={1000}
         height={1000}
+        priority={true}
       />
 
       <div className="flex flex-row gap-2 mt-4">
@@ -24,6 +25,7 @@ const ProductImages = ({ images }: { images: string[] }) => {
             width={1000}
             height={1000}
             alt="image"
+            priority={true}
             className={cn(
               "w-20 h-20 object-contain border-gray-300 hover:border-green-600 cursor-pointer border-2",
               {

@@ -1,11 +1,5 @@
-import React from "react";
-import ModeToggle from "./mode-toggle";
-import {
-  EllipsisIcon,
-  EllipsisVertical,
-  ShoppingCart,
-  SquareUser,
-} from "lucide-react";
+"use client";
+import { EllipsisIcon, ShoppingCart, SquareUser } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import {
@@ -14,6 +8,12 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
+import dynamic from "next/dynamic";
+
+const ModeToggle = dynamic(() => import("./mode-toggle"), {
+  ssr: false,
+});
+
 const Menu = () => {
   return (
     <div className="flex justify-end gap-3">
