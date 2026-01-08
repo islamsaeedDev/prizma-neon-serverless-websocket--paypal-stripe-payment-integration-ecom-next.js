@@ -7,7 +7,6 @@
 generator client {
   provider = "prisma-client"
   output   = "../lib/generated/prisma"
-  previewFeatures = ["driverAdapters"]
 }
 
 datasource db {
@@ -28,7 +27,7 @@ model Product {
   price Decimal @default(0) @db.Decimal(12, 2)
   brand String
 
-  ratting     Decimal @default(0) @db.Decimal(3, 2)
+  ratting    Decimal @default(0) @db.Decimal(3, 2)
   numReviews Decimal @default(0)
 
   stock      Int
