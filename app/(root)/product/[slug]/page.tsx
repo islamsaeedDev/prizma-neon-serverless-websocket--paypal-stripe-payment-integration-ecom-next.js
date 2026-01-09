@@ -5,7 +5,7 @@ import Image from "next/image";
 import ProductPrice from "@/components/shared/products/product-price";
 
 import { notFound } from "next/navigation";
-import { getProductBySlug } from "@/lib/actions/product.actions";
+import { getProductBySlug } from "@/prisma/actions/product.actions";
 import ProductImages from "@/components/shared/products/product-images";
 
 const ProductDetails = async (props: { params: Promise<{ slug: string }> }) => {

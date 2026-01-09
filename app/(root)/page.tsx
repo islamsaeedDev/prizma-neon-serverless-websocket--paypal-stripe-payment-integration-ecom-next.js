@@ -1,9 +1,7 @@
 import { ProductList } from "@/components/shared/products/product-list";
 import { LATEST_PRODUCT_LIMIT } from "@/lib";
 
-import { getLatestProducts } from "@/lib/actions/product.actions";
-
-import React from "react";
+import { getLatestProducts } from "@/prisma/actions/product.actions";
 
 export const metadata = {
   title: "Home",

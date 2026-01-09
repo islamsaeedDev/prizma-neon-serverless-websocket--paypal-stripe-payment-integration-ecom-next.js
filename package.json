@@ -22,7 +22,9 @@
     "gsap": "^3.14.2",
     "lucide-react": "^0.562.0",
     "next": "^16.1.1",
+    "next-auth": "^5.0.0-beta.30",
     "next-themes": "^0.4.6",
+    "nvm": "^0.0.4",
     "pg": "^8.16.3",
     "react": "19.2.3",
     "react-dom": "19.2.3",
@@ -50,6 +52,6 @@
   },
   "type": "module",
   "prisma": {
-    "seed": "ts-node prisma/seed.ts"
+    "seed": "node prisma/seed.ts"
   }
 }
