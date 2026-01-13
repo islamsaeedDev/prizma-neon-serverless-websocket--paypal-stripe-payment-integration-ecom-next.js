@@ -1,9 +1,7 @@
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import Image from "next/image";
 import ProductPrice from "@/components/shared/products/product-price";
-
 import { notFound } from "next/navigation";
 import { getProductBySlug } from "@/prisma/actions/product.actions";
 import ProductImages from "@/components/shared/products/product-images";
@@ -33,7 +31,8 @@ const ProductDetails = async (props: { params: Promise<{ slug: string }> }) => {
               </p>
               <h1 className="h3-bold">{product.name}</h1>
               <p>
-                {product.ratting} of {Number(product.numReviews)} reviews
+                {Number(product.ratting)} of {Number(product.numReviews)}
+                reviews
               </p>
               <div className="flex flex-col sm:flex-row sm:items-center gap-3 ">
                 <ProductPrice
