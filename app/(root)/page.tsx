@@ -1,5 +1,5 @@
 import { ProductList } from "@/components/shared/products/product-list";
-import { LATEST_PRODUCT_LIMIT } from "@/lib";
+import { LATEST_PRODUCT_LIMIT } from "@/lib/constants";
 
 import { getLatestProducts } from "@/prisma/actions/product.actions";
 

@@ -13,7 +13,6 @@ const ProductDetails = async (props: { params: Promise<{ slug: string }> }) => {
 
   const product = await getProductBySlug(slug);
 
-  console.log("product", product);
   if (!product) {
     notFound();
   }

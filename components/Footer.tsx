@@ -1,4 +1,4 @@
-import { APP_NAME } from "@/lib";
+import { APP_NAME } from "@/lib/constants";
 import React from "react";
 
 export default function Footer() {
