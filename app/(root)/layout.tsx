@@ -1,5 +1,6 @@
 import Footer from "@/components/Footer";
 import Header from "@/components/shared/header";
+import { Toaster } from "sonner";
 
 export default function RootLayout({
   children,
@@ -9,7 +10,10 @@ export default function RootLayout({
   return (
     <div className="flex h-screen max-h-full flex-col">
       <Header />
-      <main className="flex-1 wrapper">{children}</main>
+      <main className="flex-1 wrapper">
+        <Toaster />
+        {children}
+      </main>
       <Footer />
     </div>
   );

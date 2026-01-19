@@ -2,6 +2,7 @@ import { APP_NAME } from "@/lib/constants";
 import Image from "next/image";
 import Link from "next/link";
 import Menu from "./menu";
+import UserButton from "./user-button";
 
 function Header() {
   return (
@@ -23,7 +24,7 @@ function Header() {
         </div>
 
         <div className="space-x-2">
-          <Menu />
+          <Menu userButton={<UserButton />} />
         </div>
       </div>
     </div>

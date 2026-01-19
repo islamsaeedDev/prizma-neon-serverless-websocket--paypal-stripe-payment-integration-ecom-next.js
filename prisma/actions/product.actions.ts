@@ -31,7 +31,25 @@ export const getLatestProducts = async (product_limit: number) => {
 
 //get single product
 export async function getProductBySlug(slug: string) {
-  return await prisma.product.findFirst({
-    where: { slug: slug },
-  });
+  const data = await prisma
+    .$extends({
+      result: {
+        product: {
+          price: {
+            compute(product) {
+              return product.price.toString();
+            },
+          },
+          ratting: {
+            compute(product) {
+              return product.ratting.toString();
+            },
+          },
+        },
+      },
+    })
+    .product.findFirst({
+      where: { slug: slug },
+    });
+  return convertToPlainObjectz(data);
 }

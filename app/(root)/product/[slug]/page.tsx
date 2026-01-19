@@ -1,10 +1,10 @@
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
 import ProductPrice from "@/components/shared/products/product-price";
 import { notFound } from "next/navigation";
 import { getProductBySlug } from "@/prisma/actions/product.actions";
 import ProductImages from "@/components/shared/products/product-images";
+import AddToCart from "@/components/shared/products/add-to-cart";
 
 const ProductDetails = async (props: { params: Promise<{ slug: string }> }) => {
   const { slug } = await props.params;
@@ -36,7 +36,7 @@ const ProductDetails = async (props: { params: Promise<{ slug: string }> }) => {
               </p>
               <div className="flex flex-col sm:flex-row sm:items-center gap-3 ">
                 <ProductPrice
-                  classNamme="bg-green-100 text-green-700 w-24 rounded-full px-5 py-2"
+                  className="bg-green-100 text-green-700 w-24 rounded-full px-5 py-2"
                   value={Number(product.price)}
                 />
               </div>
@@ -76,9 +76,16 @@ const ProductDetails = async (props: { params: Promise<{ slug: string }> }) => {
                     </div>
 
                     <div className=" mt-4">
-                      <Button className="w-full cursor-pointer">
-                        Add To Cart
-                      </Button>
+                      <AddToCart
+                        item={{
+                          productId: product.id,
+                          name: product.name,
+                          slug: product.slug,
+                          price: product.price,
+                          qty: 1,
+                          image: product.images![0],
+                        }}
+                      />
                     </div>
                   </>
                 )}

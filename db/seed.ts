@@ -25,3 +25,4 @@ export async function seed() {
 }
 
 seed();
+//npx tsx ./db/seed

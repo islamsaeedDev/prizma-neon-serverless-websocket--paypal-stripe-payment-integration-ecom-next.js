@@ -1,5 +1,5 @@
 "use client";
-import { EllipsisIcon, ShoppingCart, SquareUser } from "lucide-react";
+import { EllipsisIcon, ShoppingCart } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import {
@@ -9,12 +9,11 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet";
 import dynamic from "next/dynamic";
-
 const ModeToggle = dynamic(() => import("./mode-toggle"), {
   ssr: false,
 });
 
-const Menu = () => {
+const Menu = ({ userButton }: { userButton: React.ReactNode }) => {
   return (
     <div className="flex justify-end gap-3">
       <nav className="hidden md:flex w-full max-w-xs gap-1">
@@ -25,12 +24,7 @@ const Menu = () => {
             Cart
           </Link>
         </Button>
-        <Button asChild variant="ghost">
-          <Link href="/sign-in">
-            <SquareUser />
-            Sign In
-          </Link>
-        </Button>
+        {userButton}
       </nav>
       <nav className="md:hidden">
         <Sheet>
@@ -47,12 +41,7 @@ const Menu = () => {
                 Cart
               </Link>
             </Button>
-            <Button asChild>
-              <Link href="/auth">
-                <SquareUser />
-                Sign In
-              </Link>
-            </Button>
+            {userButton}
           </SheetContent>
         </Sheet>
       </nav>
