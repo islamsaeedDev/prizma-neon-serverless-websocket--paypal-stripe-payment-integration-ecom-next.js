@@ -3,6 +3,8 @@ import Image from "next/image";
 import Link from "next/link";
 import Menu from "./menu";
 import UserButton from "./user-button";
+import MenuNavigator from "./menu-navigator";
+import NavigatorLink from "./Navigator-link";
 
 function Header() {
   return (
@@ -22,7 +24,10 @@ function Header() {
             </span>
           </Link>
         </div>
-
+        <MenuNavigator>
+          <NavigatorLink href="/aboutus">About Us</NavigatorLink>
+          <NavigatorLink href="/policy">Policy</NavigatorLink>
+        </MenuNavigator>
         <div className="space-x-2">
           <Menu userButton={<UserButton />} />
         </div>

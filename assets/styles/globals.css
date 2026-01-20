@@ -248,3 +248,20 @@
     @apply bg-background text-foreground;
   }
 }
+/* for the page animation */
+.transition-grid {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: 9999;
+}
+.transition-block {
+  position: absolute;
+  background-color: #000;
+  opacity: 0;
+}
+/* for the page animation */
