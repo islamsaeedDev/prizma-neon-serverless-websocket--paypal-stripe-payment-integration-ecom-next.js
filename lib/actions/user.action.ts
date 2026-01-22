@@ -5,11 +5,11 @@ import { signInFormScheme, signUpFormSchema } from "../validator";
 import { AuthError } from "next-auth";
 import { hashSync } from "bcryptjs";
 import { prisma } from "../prisma.node";
-import { handleZodError } from "../utils";
+import { handleZodAndOtherError } from "../utils";
 
 export async function signInWithCredentials(
   prevState: unknown,
-  formData: FormData
+  formData: FormData,
 ) {
   try {
     const user = signInFormScheme.parse({
@@ -45,7 +45,7 @@ export async function signOutUser() {
 
 export async function signUpWithCredentials(
   prevState: unknown,
-  formData: FormData
+  formData: FormData,
 ) {
   try {
     const user = signUpFormSchema.parse({
@@ -77,6 +77,6 @@ export async function signUpWithCredentials(
       throw error;
     }
 
-    return handleZodError(error);
+    return handleZodAndOtherError(error);
   }
 }

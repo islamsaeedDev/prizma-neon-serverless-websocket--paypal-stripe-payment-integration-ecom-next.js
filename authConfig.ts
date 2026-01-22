@@ -69,7 +69,7 @@ export const config = {
       session.user.id = token.sub;
       session.user.role = token.role;
       session.user.name = token.name;
-      console.log("token", token);
+
       //handle name update
       if (trigger === "update") {
         session.user.name = user.name;

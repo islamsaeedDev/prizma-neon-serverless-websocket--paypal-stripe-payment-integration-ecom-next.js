@@ -261,7 +261,7 @@
 }
 .transition-block {
   position: absolute;
-  background-color: #000;
+  background-color: #201e1e;
   opacity: 0;
 }
 /* for the page animation */

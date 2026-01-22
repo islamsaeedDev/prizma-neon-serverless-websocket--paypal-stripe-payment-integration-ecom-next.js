@@ -5,6 +5,8 @@ import { notFound } from "next/navigation";
 import { getProductBySlug } from "@/prisma/actions/product.actions";
 import ProductImages from "@/components/shared/products/product-images";
 import AddToCart from "@/components/shared/products/add-to-cart";
+import { getMyCart } from "@/lib/actions/cart.actions";
+import { CartItem } from "@/types";
 
 const ProductDetails = async (props: { params: Promise<{ slug: string }> }) => {
   const { slug } = await props.params;
@@ -14,6 +16,19 @@ const ProductDetails = async (props: { params: Promise<{ slug: string }> }) => {
   if (!product) {
     notFound();
   }
+
+  const cart = await getMyCart();
+  const uiCart = cart
+    ? {
+        sessionCartId: cart.sessionCartId,
+        userId: cart.userId,
+        items: Array.isArray(cart.items) ? (cart.items as CartItem[]) : [],
+        itemsPrice: cart.itemsPrice.toString(),
+        shippingPrice: cart.shippingPrice.toString(),
+        taxPrice: cart.taxPrice.toString(),
+        totalPrice: cart.totalPrice.toString(),
+      }
+    : undefined;
 
   return (
     <>
@@ -77,6 +92,7 @@ const ProductDetails = async (props: { params: Promise<{ slug: string }> }) => {
 
                     <div className=" mt-4">
                       <AddToCart
+                        cart={uiCart}
                         item={{
                           productId: product.id,
                           name: product.name,
