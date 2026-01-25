@@ -6,10 +6,10 @@ import { getLatestProducts } from "@/prisma/actions/product.actions";
 export const metadata = {
   title: "Home",
 };
-const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
+// const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
 const HomePage = async () => {
-  await delay(1500);
+  // await delay(1500);
   const latestProducts = await getLatestProducts(LATEST_PRODUCT_LIMIT);
 
   return (

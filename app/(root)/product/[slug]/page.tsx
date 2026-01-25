@@ -18,17 +18,6 @@ const ProductDetails = async (props: { params: Promise<{ slug: string }> }) => {
   }
 
   const cart = await getMyCart();
-  const uiCart = cart
-    ? {
-        sessionCartId: cart.sessionCartId,
-        userId: cart.userId,
-        items: Array.isArray(cart.items) ? (cart.items as CartItem[]) : [],
-        itemsPrice: cart.itemsPrice.toString(),
-        shippingPrice: cart.shippingPrice.toString(),
-        taxPrice: cart.taxPrice.toString(),
-        totalPrice: cart.totalPrice.toString(),
-      }
-    : undefined;
 
   return (
     <>
@@ -92,7 +81,7 @@ const ProductDetails = async (props: { params: Promise<{ slug: string }> }) => {
 
                     <div className=" mt-4">
                       <AddToCart
-                        cart={uiCart}
+                        cart={cart}
                         item={{
                           productId: product.id,
                           name: product.name,

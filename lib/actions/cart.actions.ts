@@ -90,7 +90,7 @@ export async function addItemToCart(
         //if the item doesn`t exist in the  cart
 
         //push this new item to  cart
-        (cart.items as CartItem[]).push(item);
+        (cart.items as CartItem[]).push(item); //cart .[].push [{},...]
 
         await prisma.cart.update({
           where: { id: cart.id },
@@ -128,8 +128,23 @@ export async function getMyCart() {
     where: userId ? { userId: userId } : { sessionCartId: sessionCartId },
   });
 
+  const uiCart = cart
+    ? {
+        id: cart.id,
+        items: Array.isArray(cart.items) ? (cart.items as CartItem[]) : [], //json
+
+        sessionCartId: cart.sessionCartId,
+        userId: cart.userId ?? undefined,
+
+        itemsPrice: cart.itemsPrice.toString(),
+        shippingPrice: cart.shippingPrice.toString(),
+        taxPrice: cart.taxPrice.toString(),
+        totalPrice: cart.totalPrice.toString(),
+      }
+    : undefined;
+
   if (!cart) return undefined;
-  return cart;
+  return uiCart;
 }
 // remove item  from cart
 export async function removeItemFromCart(productId: string) {
