@@ -72,7 +72,7 @@ function ShippingAddressForm({ address }: { address?: ShippingAddress }) {
               control={form.control}
               render={({ field, fieldState }) => (
                 <Field
-                  className="gap-2 font-extralight"
+                  className="gap-2 font-light"
                   data-invalid={fieldState.invalid}
                 >
                   <FieldLabel htmlFor={field.name}>Full Name</FieldLabel>
@@ -95,7 +95,7 @@ function ShippingAddressForm({ address }: { address?: ShippingAddress }) {
               control={form.control}
               render={({ field, fieldState }) => (
                 <Field
-                  className="gap-2 font-extralight"
+                  className="gap-2 font-light"
                   data-invalid={fieldState.invalid}
                 >
                   <FieldLabel htmlFor={field.name}>Street Address</FieldLabel>
@@ -104,7 +104,7 @@ function ShippingAddressForm({ address }: { address?: ShippingAddress }) {
                       {...field}
                       placeholder="Enter your Street Address"
                       rows={3}
-                      className="min-h-10 resize-none font-extralight"
+                      className="min-h-10 resize-none font-light"
                       aria-invalid={fieldState.invalid}
                     />
                     <InputGroupAddon align="block-end">
@@ -129,7 +129,7 @@ function ShippingAddressForm({ address }: { address?: ShippingAddress }) {
                   <FieldLabel htmlFor={field.name}>City</FieldLabel>
 
                   <Input
-                    className="font-extralight"
+                    className=" font-light"
                     {...field}
                     aria-invalid={fieldState.invalid}
                     placeholder="Enter City"
@@ -150,7 +150,7 @@ function ShippingAddressForm({ address }: { address?: ShippingAddress }) {
                   <FieldLabel htmlFor={field.name}>Country</FieldLabel>
 
                   <Input
-                    className="font-extralight"
+                    className="font-light"
                     {...field}
                     aria-invalid={fieldState.invalid}
                     placeholder="Enter Country"
@@ -171,7 +171,7 @@ function ShippingAddressForm({ address }: { address?: ShippingAddress }) {
                   <FieldLabel htmlFor={field.name}>Postal Code</FieldLabel>
 
                   <Input
-                    className="font-extralight"
+                    className="font-light"
                     {...field}
                     aria-invalid={fieldState.invalid}
                     placeholder="Enter City"

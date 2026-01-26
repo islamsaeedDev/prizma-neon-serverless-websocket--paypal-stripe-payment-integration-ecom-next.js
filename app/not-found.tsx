@@ -5,7 +5,7 @@ import Image from "next/image";
 
 const NotFoundPage = () => {
   return (
-    <div className="flex flex-col items-center min-h-screen justify-center gap-4">
+    <div className="md:w-1/2 w-2/3 mx-auto flex flex-col items-center min-h-screen justify-center gap-4">
       <Image
         src="/images/logo.png"
         alt={`${APP_NAME} logo`}

@@ -4,6 +4,7 @@ import { prisma } from "./lib/prisma.node";
 import CredentialsProvider from "next-auth/providers/credentials";
 import { compareSync } from "bcryptjs";
 import { authConfig } from "./auth.config";
+import { cookies } from "next/headers";
 
 export const config = {
   ...authConfig,
@@ -13,6 +14,7 @@ export const config = {
         email: { label: "email", type: "email" },
         password: { label: "password", type: "password" },
       },
+
       async authorize(credentials) {
         if (credentials === null) return null;
 
@@ -27,6 +29,7 @@ export const config = {
         if (!user) {
           return null;
         }
+
         if (user && user.password) {
           const isMatch = compareSync(
             credentials.password as string,
@@ -51,17 +54,46 @@ export const config = {
     async jwt({ token, user, trigger, session }: any) {
       if (user) {
         token.role = user.role;
+        token.id = user.id;
         //if  no name get it from  email
         if (user.name === "NO_NAME") {
           token.name = user.email!.split("@")[0];
+
+          // update DB as  the  token
+          await prisma.user.update({
+            where: { id: user.id },
+            data: { name: token.name },
+          });
         }
 
-        // update DB as  the  token
-        await prisma.user.update({
-          where: { id: user.id },
-          data: { name: token.name },
-        });
+        //
+        if (trigger === "signIn" || trigger === "signUp") {
+          const cookiesObject = await cookies();
+          const sessionCartId = cookiesObject.get("sessionCartId")?.value;
+
+          if (sessionCartId) {
+            const sessionCart = await prisma.cart.findFirst({
+              where: { id: sessionCartId },
+            });
+
+            if (sessionCart) {
+              //delete current user cart
+              await prisma.cart.deleteMany({
+                where: { userId: user.id },
+              });
+
+              //update session cart
+              await prisma.cart.update({
+                where: { id: sessionCartId },
+                data: { userId: user.id },
+              });
+              //set sessionCartId cookie
+              //cookiesObject.set("sessionCartId", sessionCartId);
+            }
+          }
+        }
       }
+
       return token;
     },
     async session({ session, user, trigger, token }: any) {

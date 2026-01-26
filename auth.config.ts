@@ -12,7 +12,27 @@ export const authConfig = {
   },
   callbacks: {
     authorized({ request, auth }: any) {
+      // array  of regex patterns of paths i want to  pprotect
+
+      const protectedPaths = [
+        /\/shipping-address/,
+        /\/payment-method/,
+        /\/place-order/,
+        /\/profile/,
+        /\/user\/(.*)/,
+        /\/order\/(.*)/,
+        /\/admin/,
+        /\/admin\/(.*)/,
+      ];
+      const pathname = new URL(request.url).pathname;
+
+      if (!auth && protectedPaths.some((path) => path.test(pathname))) {
+        return false;
+      }
+
+      ///
       //check for session cart cookie
+
       if (!request.cookies.get("sessionCartId")) {
         // gennerate new session for cart id cookie
         const sessionCartId = crypto.randomUUID();
