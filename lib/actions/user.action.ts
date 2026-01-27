@@ -2,6 +2,7 @@
 import { isRedirectError } from "next/dist/client/components/redirect-error";
 import { auth, signIn, signOut } from "@/authConfig";
 import {
+  paymentMethodScheme,
   shippingAddressScheme,
   signInFormScheme,
   signUpFormSchema,
@@ -11,6 +12,7 @@ import { hashSync } from "bcryptjs";
 import { prisma } from "../prisma.node";
 import { handleZodAndOtherError } from "../utils";
 import { ShippingAddress } from "@/types";
+import z from "zod";
 
 export async function signInWithCredentials(
   prevState: unknown,
@@ -123,6 +125,39 @@ export async function insertUserAddress(data: ShippingAddress) {
     });
 
     return { success: true, message: ["User address inserted successfully"] };
+  } catch (error) {
+    return { success: false, message: handleZodAndOtherError(error) };
+  }
+}
+
+//update use payment method in my User table
+
+export async function updatePaymentMethod(
+  data: z.infer<typeof paymentMethodScheme>,
+) {
+  try {
+    //get session
+    const session = await auth();
+
+    //get current user
+    const currentuser = await prisma.user.findFirst({
+      where: {
+        id: session?.user?.id,
+      },
+    });
+    if (!currentuser) throw new Error("User not found");
+
+    //updating payment method
+    const paymentMethod = paymentMethodScheme.parse(data);
+    await prisma.user.update({
+      where: { id: currentuser.id },
+      data: { paymentMethod: paymentMethod.type },
+    });
+
+    return {
+      success: true,
+      message: ["User payment method inserted successfully"],
+    };
   } catch (error) {
     return { success: false, message: handleZodAndOtherError(error) };
   }

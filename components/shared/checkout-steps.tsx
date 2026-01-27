@@ -12,7 +12,7 @@ const CheckoutSteps = ({ current = 0 }: { current: number }) => {
                   border-green-300
                `}
               >
-                {index === current || index === 0 ? (
+                {index === current || index < current ? (
                   <span className="w-8 h-8 rounded-full bg-green-300 text-secondary flex items-center justify-center">
                     {index + 1}
                   </span>

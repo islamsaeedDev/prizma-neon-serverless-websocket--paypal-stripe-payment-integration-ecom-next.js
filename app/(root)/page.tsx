@@ -1,9 +1,10 @@
+import { Metadata } from "next";
 import { ProductList } from "@/components/shared/products/product-list";
 import { LATEST_PRODUCT_LIMIT } from "@/lib/constants";
-
 import { getLatestProducts } from "@/prisma/actions/product.actions";
 
-export const metadata = {
+
+export const metadata: Metadata = {
   title: "Home",
 };
 // const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));

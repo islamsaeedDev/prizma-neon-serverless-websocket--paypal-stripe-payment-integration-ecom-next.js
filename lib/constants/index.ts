@@ -29,3 +29,12 @@ export const shippingAddressDefaultValues = {
   lat: "",
   lng: "",
 };
+
+export const PAYMENT_METHODS = process.env.PAYMENT_METHODS?.split(",") || [
+  "Stripe",
+  "Paypal",
+  "CashOnDelivery",
+];
+
+export const DEFAULT_PAYMENT_METHOD =
+  process.env.DEFAULT_PAYMENT_METHOD || "Paypal";
