@@ -8,13 +8,17 @@ import { useActionState } from "react";
 import { useSearchParams } from "next/navigation";
 import { signUpDefaultValues } from "@/lib/constants";
 
+type ActionResult = {
+  success: boolean;
+  message: string[];
+};
+
 function SignUpFrom() {
   const [state, formAction, isPending] = useActionState(signUpWithCredentials, {
     success: false,
     message: [],
   });
 
-  console.log(state);
   const searchParams = useSearchParams();
   const callbackurl = searchParams.get("callbackurl") || "/";
 
@@ -83,13 +87,15 @@ function SignUpFrom() {
             {isPending ? "Submiting..." : "Sign Up"}
           </Button>
         </div>
-        {state && !state.success && state.message.length > 0 && (
-          <div className="text-red-500">
-            {state.message.map((m: string) => (
-              <p key={m}>{m.charAt(0).toUpperCase() + m.slice(1)}</p>
-            ))}
-          </div>
-        )}
+        {(state as ActionResult) &&
+          !(state as ActionResult).success &&
+          (state as ActionResult).message.length > 0 && (
+            <div className="text-red-500">
+              {(state as ActionResult).message.map((m: string) => (
+                <p key={m}>{m.charAt(0).toUpperCase() + m.slice(1)}</p>
+              ))}
+            </div>
+          )}
         <div className="text-sm text-center text-muted-foreground ">
           Aleady have an account?{"  "}
           <Link className="link underline" target="_self" href="/sign-in">
