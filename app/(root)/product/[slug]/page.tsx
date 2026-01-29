@@ -6,7 +6,6 @@ import { getProductBySlug } from "@/prisma/actions/product.actions";
 import ProductImages from "@/components/shared/products/product-images";
 import AddToCart from "@/components/shared/products/add-to-cart";
 import { getMyCart } from "@/lib/actions/cart.actions";
-import { CartItem } from "@/types";
 
 const ProductDetails = async (props: { params: Promise<{ slug: string }> }) => {
   const { slug } = await props.params;
@@ -35,7 +34,7 @@ const ProductDetails = async (props: { params: Promise<{ slug: string }> }) => {
               </p>
               <h1 className="h3-bold">{product.name}</h1>
               <p>
-                {Number(product.ratting)} of {Number(product.numReviews)}
+                {Number(product.ratting)} of {Number(product.numReviews)}{" "}
                 reviews
               </p>
               <div className="flex flex-col sm:flex-row sm:items-center gap-3 ">

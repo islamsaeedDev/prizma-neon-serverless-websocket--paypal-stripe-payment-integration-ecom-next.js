@@ -123,10 +123,15 @@ export async function insertUserAddress(data: ShippingAddress) {
 
     // updating  my table  filed of  address
     const address = shippingAddressScheme.parse(data);
-    await prisma.user.update({
+
+    const updateUser = await prisma.user.update({
       where: { id: userId },
       data: { address: address },
     });
+
+    if (!updateUser) {
+      await signOut({ redirectTo: "/sign-in?error=session_expired" });
+    }
 
     return { success: true, message: ["User address inserted successfully"] };
   } catch (error) {
