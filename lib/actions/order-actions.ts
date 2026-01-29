@@ -2,7 +2,6 @@
 
 import { auth } from "@/authConfig";
 import { getMyCart } from "./cart.actions";
-import { success } from "zod";
 import { getUserById } from "./user.action";
 import { insertOrderSchema } from "../validator";
 import { prisma } from "../prisma.node";

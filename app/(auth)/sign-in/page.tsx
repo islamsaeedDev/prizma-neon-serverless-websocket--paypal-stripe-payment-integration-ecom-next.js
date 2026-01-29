@@ -19,9 +19,12 @@ export const metadata: Metadata = {
 const SignInPage = async ({
   searchParams,
 }: {
-  searchParams: Promise<{ callbackurl?: string }>;
+  searchParams: Promise<{
+    callbackurl?: string;
+  }>;
 }) => {
   const session = await auth();
+
   const { callbackurl } = await searchParams;
 
   if (session) {
@@ -47,6 +50,7 @@ const SignInPage = async ({
         </CardHeader>
         <CardContent className="space-y-4">
           {/* form structure  */}
+
           <CredentialsSignInForm />
         </CardContent>
       </Card>

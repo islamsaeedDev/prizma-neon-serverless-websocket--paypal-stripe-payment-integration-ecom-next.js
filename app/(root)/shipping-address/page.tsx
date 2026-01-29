@@ -18,15 +18,17 @@ const ShippingAddressPage = async () => {
 
   const user = await getUserById(userId);
 
-  //check that my  user data comes  from  GB as an Object :) yaa rab
-  if (!user || typeof user === "string") {
-    throw new Error("invalid user data");
-  }
+  // check that my  user data comes  from  GB as an Object :) yaa rab
+  // if (!user || typeof user === "string") {
+  //   redirect("/sign-in");
+  // }
 
   return (
     <div>
       <CheckoutSteps current={1} />
-      <ShippingAddressForm address={user?.address as ShippingAddress} />
+      <ShippingAddressForm
+        address={(user as any)?.address as ShippingAddress}
+      />
     </div>
   );
 };

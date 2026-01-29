@@ -5,8 +5,9 @@ import { Label } from "@/components/ui/label";
 import { signInWithCredentials } from "@/lib/actions/user.action";
 import { signInDefaultValues } from "@/lib/constants";
 import Link from "next/link";
-import { useActionState } from "react";
+import { useActionState, useEffect } from "react";
 import { useSearchParams } from "next/navigation";
+import { toast } from "sonner";
 
 function CredentialsSignInForm() {
   const [state, formAction, isPending] = useActionState(signInWithCredentials, {
@@ -16,6 +17,14 @@ function CredentialsSignInForm() {
 
   const searchParams = useSearchParams();
   const callbackurl = searchParams.get("callbackurl") || "/";
+  const error = searchParams.get("error");
+
+  // Show toast when session expires
+  useEffect(() => {
+    if (error === "session_expired") {
+      toast.error("Your session has expired. Please sign in again.");
+    }
+  }, [error]);
 
   return (
     <form action={formAction}>
