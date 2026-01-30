@@ -7,7 +7,7 @@ import { insertOrderSchema } from "../validator";
 import { prisma } from "../prisma.node";
 import { CartItem } from "@/types";
 import { isRedirectError } from "next/dist/client/components/redirect-error";
-import { handleZodAndOtherError } from "../utils";
+import { convertToPlainObjectz, handleZodAndOtherError } from "../utils";
 
 // create order  and create  the  order items
 
@@ -89,7 +89,7 @@ export async function createOrder() {
     return {
       success: true,
       message: "order created successfully",
-      orderId: insertedOrderId,
+      redirectTo: `/order/${insertedOrderId}`,
     };
   } catch (error) {
     if (isRedirectError(error)) throw error;
@@ -97,6 +97,36 @@ export async function createOrder() {
     return {
       success: false,
       message: handleZodAndOtherError(error),
+    };
+  }
+}
+
+// function get order by ID
+export async function getOrderById(orderId: string) {
+  try {
+    const data = await prisma.order.findUnique({
+      where: { id: orderId },
+      include: {
+        orderItems: true,
+        user: { select: { name: true, email: true } },
+      },
+    });
+
+    if (!data) {
+      return {
+        success: false,
+        message: "order not found",
+      };
+    }
+
+    return {
+      success: true,
+      message: convertToPlainObjectz(data),
+    };
+  } catch (error) {
+    return {
+      success: false,
+      message: handleZodAndOtherError(error) as unknown,
     };
   }
 }

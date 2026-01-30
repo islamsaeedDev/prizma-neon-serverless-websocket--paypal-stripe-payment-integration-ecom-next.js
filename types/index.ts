@@ -23,15 +23,15 @@ export type CartItem = z.infer<typeof cartItemScheme>;
 
 export type ShippingAddress = z.infer<typeof shippingAddressScheme>;
 
-export  type OrderItem  = z.infer<typeof insertOrderItemSchema>
-export type Order = z.infer<typeof insertOrderSchema>&{
-  id:string;
-  createdAt:Date;
-  updatedAt:Date;
-  isPaid:boolean;
-  paidAt:Date | null;
-  isDelivered:boolean;
-  deliveredAt:Date | null;
-  OrderItem: OrderItem[]
-  user:{name:string;email:string}
-}
+export type OrderItem = z.infer<typeof insertOrderItemSchema>;
+export type Order = z.infer<typeof insertOrderSchema> & {
+  id: string;
+  createdAt: Date;
+  updatedAt: Date;
+  isPaid: boolean;
+  paidAt: Date | null;
+  isDelivered: boolean;
+  deliveredAt: Date | null;
+  orderItems: OrderItem[];
+  user: { name: string; email: string };
+};

@@ -18,6 +18,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import { currencyFormat } from "@/lib/utils";
+import PlaceOrderForm from "./place-order-form";
 
 export const metadata: Metadata = {
   title: "Place Order",
@@ -88,8 +89,8 @@ const PlaceOrderPage = async () => {
                 <TableHeader>
                   <TableRow>
                     <TableHead>Item</TableHead>
-                    <TableHead>Quantity</TableHead>
-                    <TableHead>Price</TableHead>
+                    <TableHead className="text-center">Quantity</TableHead>
+                    <TableHead className="text-right">Price</TableHead>
                   </TableRow>
                 </TableHeader>
                 <TableBody>
@@ -146,6 +147,8 @@ const PlaceOrderPage = async () => {
                   {currencyFormat(cart.totalPrice)}
                 </span>
               </div>
+              {/* place  orde f0rm  */}
+              <PlaceOrderForm />
             </CardContent>
           </Card>
         </div>

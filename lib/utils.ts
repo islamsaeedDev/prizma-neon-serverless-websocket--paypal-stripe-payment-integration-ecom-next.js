@@ -1,5 +1,4 @@
 import { clsx, type ClassValue } from "clsx";
-import { type } from "node:os";
 import { twMerge } from "tailwind-merge";
 
 export function cn(...inputs: ClassValue[]) {
@@ -61,3 +60,53 @@ export function currencyFormat(amount: number | string | null) {
     return currency_formatter.format(Number(amount));
   if (typeof amount === null) return "NAN";
 }
+
+// i want to  format the id like ordeId  i will show  only the  last  6 numbers by  slice  with negative -6  or  substring with length -6
+
+export function formatId(id: string) {
+  //return id.slice(-6);
+  return `...${id.substring(id.length - 6)}`;
+}
+
+//format the data and time international dateTiemeFormate
+
+export const formatDateTime = (date: Date) => {
+  const dateTimeOptions: Intl.DateTimeFormatOptions = {
+    year: "numeric",
+    month: "short",
+    day: "numeric",
+    hour: "numeric",
+    minute: "numeric",
+    second: "numeric",
+    hour12: true,
+  };
+
+  const dateOptions: Intl.DateTimeFormatOptions = {
+    year: "numeric",
+    month: "short",
+    weekday: "short",
+    day: "numeric",
+  };
+
+  const timeOptions: Intl.DateTimeFormatOptions = {
+    hour: "numeric",
+    minute: "numeric",
+    second: "numeric",
+    hour12: true,
+  };
+
+  const formattedDateTime = new Date(date).toLocaleString(
+    "en-US",
+    dateTimeOptions,
+  );
+
+  const formattedDate = new Date(date).toLocaleString("en-US", dateOptions);
+
+  const formattedTime = new Date(date).toLocaleString("en-US", timeOptions);
+
+  return {
+    formattedDateTime,
+    formattedDate,
+    formattedTime,
+  };
+};
