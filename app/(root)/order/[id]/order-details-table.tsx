@@ -79,7 +79,7 @@ function OrderDetailsTable({
   return (
     <>
       <h1 className="py-4 text-2xl font-semibold">Order : {formatId(id)}</h1>
-      <div className="grid md:grid-cols-3 md:gap-5 gap-2">
+      <div className="grid md:grid-cols-3 md:gap-5 gap-3">
         <div className="col-span-2 space-y-5 overflow-x-auto">
           <Card>
             <CardContent className="p-2 gap-4">
@@ -159,9 +159,9 @@ function OrderDetailsTable({
             </CardContent>
           </Card>
         </div>
-        <div>
+        <div className="col-span-2 md:col-span-1">
           <Card>
-            <CardContent className="p-3 py-1 gap-4">
+            <CardContent className="py-2  gap-4">
               <h2 className="text-lg pb-4 font-semibold">Order Summary</h2>
               <div className="flex justify-between">
                 <div>Items</div>
@@ -185,13 +185,13 @@ function OrderDetailsTable({
                 </span>
               </div>
               {/* Paypal Payment */}
-              <div className="mt-4">
+              <div className="mt-4 ">
                 <PayPalScriptProvider options={{ clientId: paypalClientId }}>
                   <PrintLoadingState />
                   <PayPalButtons
                     createOrder={handleCreatePaypalOrder}
                     onApprove={handleApprovePaypalOrder}
-                    style={{ layout: "horizontal" }}
+                    style={{ layout: "vertical" }}
                   />
                 </PayPalScriptProvider>
               </div>
