@@ -31,7 +31,10 @@ export default async function OrderPage({
   return (
     <div>
       <div>
-        <OrderDetailsTable order={order as Order} />
+        <OrderDetailsTable
+          order={order as Order}
+          paypalClientId={process.env.PAYPAL_CLIENT_ID || ""}
+        />
       </div>
     </div>
   );

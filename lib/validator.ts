@@ -103,14 +103,22 @@ export const insertOrderSchema = z.object({
   }),
 });
 
-//schema  fot inserting order item 
+//schema  fot inserting order item
 
 export const insertOrderItemSchema = z.object({
-
   productId: z.string(),
   qty: z.number().int().nonnegative("Quantity must be a non-negative number"),
   price: currency,
   name: z.string(),
   slug: z.string(),
-  image: z.string()
-})
+  image: z.string(),
+});
+
+//payment result schema
+
+export const paymentResultSchema = z.object({
+  id: z.string(),
+  status: z.string(),
+  email_address: z.string(),
+  pricePaid: z.string(),
+});

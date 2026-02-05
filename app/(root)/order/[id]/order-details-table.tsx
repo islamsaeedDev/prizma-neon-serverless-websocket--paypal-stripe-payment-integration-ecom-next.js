@@ -1,3 +1,9 @@
+"use client";
+import {
+  PayPalScriptProvider,
+  PayPalButtons,
+  usePayPalScriptReducer,
+} from "@paypal/react-paypal-js";
 import { Card, CardContent } from "@/components/ui/card";
 import { Order } from "@/types";
 import { Badge } from "@/components/ui/badge";
@@ -12,8 +18,19 @@ import {
 } from "@/components/ui/table";
 import Image from "next/image";
 import Link from "next/link";
+import {
+  approvePaypalOrder,
+  createPaypalOrder,
+} from "@/lib/actions/order-actions";
+import { toast } from "sonner";
 
-function OrderDetailsTable({ order }: { order: Order }) {
+function OrderDetailsTable({
+  order,
+  paypalClientId,
+}: {
+  order: Order;
+  paypalClientId: string;
+}) {
   const {
     id,
     paymentMethod,
@@ -24,6 +41,41 @@ function OrderDetailsTable({ order }: { order: Order }) {
     deliveredAt,
     orderItems,
   } = order;
+
+  const PrintLoadingState = () => {
+    const [{ isPending, isRejected }] = usePayPalScriptReducer();
+
+    let status = "";
+
+    if (isPending) {
+      status = "Loading Paypal...";
+    } else if (isRejected) {
+      status = "Error Loading Paypal";
+    }
+
+    return status;
+  };
+
+  // crerate create capture function handles
+
+  const handleCreatePaypalOrder = async () => {
+    const res = await createPaypalOrder(order.id);
+    if (!res.success) {
+      toast.error(res.message);
+    }
+    return res.data;
+  };
+
+  const handleApprovePaypalOrder = async (data: { orderID: string }) => {
+    const res = await approvePaypalOrder(order.id, data);
+
+    if (res.success) {
+      toast.success(res.message as string);
+    } else {
+      toast.error(res.message as string);
+    }
+  };
+
   return (
     <>
       <h1 className="py-4 text-2xl font-semibold">Order : {formatId(id)}</h1>
@@ -109,7 +161,7 @@ function OrderDetailsTable({ order }: { order: Order }) {
         </div>
         <div>
           <Card>
-            <CardContent className="p-3 gap-4">
+            <CardContent className="p-3 py-1 gap-4">
               <h2 className="text-lg pb-4 font-semibold">Order Summary</h2>
               <div className="flex justify-between">
                 <div>Items</div>
@@ -132,7 +184,17 @@ function OrderDetailsTable({ order }: { order: Order }) {
                   {currencyFormat(order.totalPrice)}
                 </span>
               </div>
-              {/* place  orde f0rm  */}
+              {/* Paypal Payment */}
+              <div className="mt-4">
+                <PayPalScriptProvider options={{ clientId: paypalClientId }}>
+                  <PrintLoadingState />
+                  <PayPalButtons
+                    createOrder={handleCreatePaypalOrder}
+                    onApprove={handleApprovePaypalOrder}
+                    style={{ layout: "horizontal" }}
+                  />
+                </PayPalScriptProvider>
+              </div>
             </CardContent>
           </Card>
         </div>
